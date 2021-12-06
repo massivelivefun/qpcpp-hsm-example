@@ -3,24 +3,6 @@
 #include "states.hpp"
 #include <stdlib.h>
 
-class States : public QP::QHsm {
-    private:
-        int count = 0;
-
-    public:
-        States();
-
-    protected:
-        void printCount(char const * msg);
-        Q_STATE_DECL(initial);
-        Q_STATE_DECL(pause);
-        Q_STATE_DECL(cycle);
-        Q_STATE_DECL(first);
-        Q_STATE_DECL(second);
-        Q_STATE_DECL(third);
-        Q_STATE_DECL(final);
-};
-
 static States l_states;
 QP::QHsm * const states = &l_states;
 
