@@ -10,14 +10,22 @@ States::States()
     : QHsm(Q_STATE_CAST(&States::initial))
 {}
 
+void States::incCount() {
+    count += 1;
+}
+
 void States::printCount(char const * msg) {
     PRINTF_S("%s: %d\n", msg, count);
+}
+
+void States::resetCount() {
+    count = 0;
 }
 
 Q_STATE_DEF(States, initial) {
     QP::QState status_;
     (void)e; // unused transition parameter
-    count = 0;
+    resetCount();
     printCount("initial");
 
     QS_FUN_DICTIONARY(&States::pause);
@@ -72,7 +80,7 @@ Q_STATE_DEF(States, cycle) {
     QP::QState status_;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
-            count = 0;
+            resetCount();
             printCount("cycle");
             status_ = Q_RET_HANDLED;
             break;
@@ -106,7 +114,7 @@ Q_STATE_DEF(States, first) {
     QP::QState status_;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
-            count += 1;
+            incCount();
             printCount("first");
             status_ = Q_RET_HANDLED;
             break;
@@ -132,7 +140,7 @@ Q_STATE_DEF(States, second) {
     QP::QState status_;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
-            count += 1;
+            incCount();
             printCount("second");
             status_ = Q_RET_HANDLED;
             break;
@@ -158,7 +166,7 @@ Q_STATE_DEF(States, third) {
     QP::QState status_;
     switch (e->sig) {
         case Q_ENTRY_SIG: {
-            count += 1;
+            incCount();
             printCount("third");
             status_ = Q_RET_HANDLED;
             break;
