@@ -15,7 +15,9 @@ class States : public QP::QHsm {
         States();
 
     protected:
+        void incCount();
         void printCount(char const * msg);
+        void resetCount();
         Q_STATE_DECL(initial);
         Q_STATE_DECL(pause);
         Q_STATE_DECL(cycle);
